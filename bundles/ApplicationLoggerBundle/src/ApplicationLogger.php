@@ -37,7 +37,7 @@ class ApplicationLogger implements LoggerInterface
 
     protected string $relatedObjectType = 'object';
 
-    /** @var array<LoggerInterface>|array{"default-monolog": Logger} $loggers */
+    /** @var array{"default-monolog": Logger}|array<LoggerInterface> $loggers */
     protected array $loggers = [];
 
     /** @var ApplicationLogger[] */
@@ -315,7 +315,7 @@ class ApplicationLogger implements LoggerInterface
     /**
      * Logs a throwable to a given logger. This can be used to format an exception in the same format
      * as the logException method to any PSR/monolog logger (e.g. when consumed via DI)
-     * @var mixed[] $context
+     * @param mixed[] $context
      */
     public static function logExceptionObject(
         LoggerInterface $logger,
