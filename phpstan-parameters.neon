@@ -25,8 +25,8 @@ parameters:
         - Pimcore\Config\Config
         - Pimcore\Templating\Model\ViewModel
 
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: true
+    checkMissingIterableValueType: true
     checkAlwaysTrueCheckTypeFunctionCall: true
 
     ergebnis:
