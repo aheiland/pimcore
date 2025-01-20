@@ -37,8 +37,10 @@ class ApplicationLogger implements LoggerInterface
 
     protected string $relatedObjectType = 'object';
 
+    /** @var LoggerInterface[] $loggers */
     protected array $loggers = [];
 
+    /** @var ApplicationLogger[] */
     protected static array $instances = [];
 
     public static function getInstance(string $component = 'default', bool $initDbHandler = false): ApplicationLogger
@@ -70,7 +72,7 @@ class ApplicationLogger implements LoggerInterface
                 $this->loggers['default-monolog'] = new Logger('app');
             }
             $this->loggers['default-monolog']->pushHandler($writer);
-        } elseif ($writer instanceof \Psr\Log\LoggerInterface) {
+        } elseif ($writer instanceof LoggerInterface) {
             $this->loggers[] = $writer;
         }
     }
@@ -152,7 +154,7 @@ class ApplicationLogger implements LoggerInterface
         }
 
         foreach ($this->loggers as $logger) {
-            if ($logger instanceof \Psr\Log\LoggerInterface) {
+            if ($logger instanceof LoggerInterface) {
                 $logger->log($level, $message, $context);
             }
         }
@@ -264,6 +266,7 @@ class ApplicationLogger implements LoggerInterface
         $this->handleLog('debug', $message, func_get_args());
     }
 
+    /** @param array{1?: ElementInterface|mixed[]} $params */
     protected function handleLog(mixed $level, string $message, array $params): void
     {
         $context = [];
@@ -312,6 +315,7 @@ class ApplicationLogger implements LoggerInterface
     /**
      * Logs a throwable to a given logger. This can be used to format an exception in the same format
      * as the logException method to any PSR/monolog logger (e.g. when consumed via DI)
+     * @var mixed[] $context
      */
     public static function logExceptionObject(
         LoggerInterface $logger,
