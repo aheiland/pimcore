@@ -37,7 +37,7 @@ class ApplicationLogger implements LoggerInterface
 
     protected string $relatedObjectType = 'object';
 
-    /** @var LoggerInterface[] $loggers */
+    /** @var array<LoggerInterface>|array{"default-monolog": Logger} $loggers */
     protected array $loggers = [];
 
     /** @var ApplicationLogger[] */
@@ -266,7 +266,7 @@ class ApplicationLogger implements LoggerInterface
         $this->handleLog('debug', $message, func_get_args());
     }
 
-    /** @param array{1?: ElementInterface|mixed[]} $params */
+    /** @param mixed[] $params */
     protected function handleLog(mixed $level, string $message, array $params): void
     {
         $context = [];
